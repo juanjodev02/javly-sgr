@@ -10,11 +10,10 @@ public class CuentaBancaria {
         this.numero = numero;
         this.nombre = nombre;
         this.banco = banco;
-
     }
 
-    public String solicitarDeposito(double monto){
-           return pago.efectuarPago(monto, this.numero);
+    public boolean solicitarDeposito(double monto){
+           return pago.efectuarCobro(monto, this.numero);
     }
 
 }

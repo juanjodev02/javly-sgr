@@ -21,6 +21,10 @@ public class ControladorReservas {
         return this.habitaciones;
     }
 
+    public ArrayList<Reservacion> getReservas() {
+        return reservas;
+    }
+
     /**
      * Esta función retorna el código de la reserva registrada
      */
@@ -56,6 +60,7 @@ public class ControladorReservas {
 
     private boolean comprobarFechas(Date fechaIngreso, Date fechaSalida, int numeroHabitacion) {
         boolean esValido = false;
+        if (this.reservas.size() == 0) return true;
         for(Reservacion reservacion : this.reservas) {
             if(!reservacion.getEstado().equals("cancelada") && reservacion.getHabitacion().getNumeroHabitacion() == numeroHabitacion) {
                 if(fechaIngreso.after(reservacion.getFechaIngreso()) && fechaIngreso.before(reservacion.getFechaSalida())){

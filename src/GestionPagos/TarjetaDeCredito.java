@@ -1,5 +1,7 @@
 package GestionPagos;
 
+import PasarelaDePagos.PasarelaPagos;
+
 import java.util.Date;
 
 public class TarjetaDeCredito implements MetodoDePago{
@@ -8,16 +10,16 @@ public class TarjetaDeCredito implements MetodoDePago{
     private int cvv;
     private String nombre;
     private String banco;
-    private Pago pago;
+    private final Pago pago;
 
-    public TarjetaDeCredito(String numero, Date fechaExpiración, int cvv, String nombre, String banco){
+    public TarjetaDeCredito(String numero, Date fechaExpiración, int cvv, String nombre){
         this.numero = numero;
         this.fechaExpiración = fechaExpiración;
         this.cvv = cvv;
         this.nombre=nombre;
-        this.banco = banco;
+        this.pago = new PasarelaPagos();
     }
-    public String solicitarPago(double monto){
+    public boolean solicitarPago(double monto){
        return pago.efectuarCobro(monto, this.numero);
     }
 }

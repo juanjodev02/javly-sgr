@@ -13,8 +13,12 @@ public class Devolucion {
 
     public boolean solicitarDevolucion() {
         double monto = this.reservacion.getPrecio();
-        cuentaBancaria.solicitarDeposito(monto);
-        reservacion.setEstado("cancelada");
-        return true;
+        boolean respuesta= cuentaBancaria.solicitarDeposito(monto);
+        if (respuesta) {
+            reservacion.setEstado("cancelada");
+            return true;
+        } else{
+            throw new Error ("Algo ha sucedido, intentelo de nuevo");
+        }
     }
 }

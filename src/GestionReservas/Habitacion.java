@@ -4,10 +4,11 @@ public class Habitacion {
     private int numeroHabitacion;
     private String descripcion;
     private double precio;
-    private Boolean estado;
 
-    public Boolean getEstado() {
-        return estado;
+    public Habitacion(int numeroHabitacion, String descripcion, double precio) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     public int getNumeroHabitacion() {
