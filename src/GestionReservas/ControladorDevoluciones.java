@@ -1,11 +1,15 @@
 package GestionReservas;
 
+import GestionPagos.CuentaBancaria;
+
+import java.util.ArrayList;
+
 public class ControladorDevoluciones {
-    private Devolucion[] devoluciones;
+    private ArrayList<Devolucion> devoluciones = new ArrayList<>();
 
-    public void solicitarDevolucion() {}
-
-    public void confirmarDevolucion() {}
-
-    public void solicitarDatosBancarios() {}
+    public void solicitarDevolucion(Reservacion reservacion, CuentaBancaria cuentaBancaria) {
+        double monto = reservacion.getPrecio();
+        cuentaBancaria.solicitarDeposito(monto);
+        reservacion.setEstado("cancelada");
+    }
 }

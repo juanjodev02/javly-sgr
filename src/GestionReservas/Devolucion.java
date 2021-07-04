@@ -1,12 +1,20 @@
 package GestionReservas;
 
+import GestionPagos.CuentaBancaria;
+
 public class Devolucion {
-    private int codigoDevolucion;
     private Reservacion reservacion;
+    private CuentaBancaria cuentaBancaria;
 
-    public void realizarDevolucion() {}
+    public Devolucion(Reservacion reservacion, CuentaBancaria cuentaBancaria) {
+        this.reservacion = reservacion;
+        this.cuentaBancaria = cuentaBancaria;
+    }
 
-    public void registrarDevolucion() {}
-
-    public void comprobarReservacion() {}
+    public boolean solicitarDevolucion() {
+        double monto = this.reservacion.getPrecio();
+        cuentaBancaria.solicitarDeposito(monto);
+        reservacion.setEstado("cancelada");
+        return true;
+    }
 }

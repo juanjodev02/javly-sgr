@@ -1,5 +1,7 @@
 package GestionReservas;
 
+import GestionPagos.MetodoDePago;
+
 import java.util.Date;
 
 public class Reservacion {
@@ -7,11 +9,71 @@ public class Reservacion {
     private Date fechaIngreso;
     private Date fechaSalida;
     private Habitacion habitacion;
+    private double precio;
     private String estado;
+    private String nombreDeUsuario;
 
-    public void registrarReserva(String pago) {}
+    public Reservacion(int numeroReserva, Date fechaIngreso, Date fechaSalida, Habitacion habitacion, String nombreDeUsuario) {
+        this.numeroReserva = numeroReserva;
+        this.fechaIngreso = fechaIngreso;
+        this.fechaSalida = fechaSalida;
+        this.habitacion = habitacion;
+        this.estado = "pendiente";
+        this.nombreDeUsuario = nombreDeUsuario;
+        this.precio = this.habitacion.getPrecio() * calcularDias(this.fechaIngreso, this.fechaSalida);
+    }
 
-    public void cancelarReserva() {}
+    private int calcularDias (Date date1, Date date2) {
+        long date1InMs = date1.getTime();
+        long date2InMs = date2.getTime();
+        long timeDiff = 0;
+        if(date1InMs > date2InMs) {
+            timeDiff = date1InMs - date2InMs;
+        } else {
+            timeDiff = date2InMs - date1InMs;
+        }
+        return (int) (timeDiff / (1000 * 60 * 60* 24));
+    }
 
-    public void generarCodigo() {}
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
+    public boolean pagarReservacion(MetodoDePago metodoDePago) {
+        metodoDePago.solicitarPago(this.precio);
+        this.estado = "pagada";
+        return true;
+    }
+
+    public int obtenerCodigo() {
+        return this.numeroReserva;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getNombreDeUsuario() {
+        return nombreDeUsuario;
+    }
+
+    public int getNumeroReserva() {
+        return numeroReserva;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public Date getFechaSalida() {
+        return fechaSalida;
+    }
 }
