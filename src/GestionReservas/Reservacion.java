@@ -53,7 +53,9 @@ public class Reservacion {
             this.estado = "pagada";
             return true;
         } else {
-            throw new Error("El banco rechazó el pago!");
+          /* throw new Error("El banco rechazó el pago!");*/
+            System.out.println("El banco rechazó su pago!");
+            return  false;
         }
     }
 

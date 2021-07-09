@@ -38,7 +38,7 @@ public class ControladorReservas {
             }
         }
 
-        if (habitacionExistente == null) throw new Error("El numero de habitacion ingresado no es valido");
+        if (habitacionExistente == null) throw new Error("El número de habitación ingresado no es válido");
 
         boolean validacionDeFechas = comprobarFechas(fechaIngreso, fechaSalida, numeroHabitacion);
 
@@ -65,7 +65,7 @@ public class ControladorReservas {
             if(!reservacion.getEstado().equals("cancelada") && reservacion.getHabitacion().getNumeroHabitacion() == numeroHabitacion) {
                 if(fechaIngreso.after(reservacion.getFechaIngreso()) && fechaIngreso.before(reservacion.getFechaSalida())){
                     // Date is between reserved days, is not possible to create a new reservation
-                    throw new Error("La habitacion no esta disponible en las fechas seleccionadas");
+                    throw new Error("La habitación no está disponible en las fechas seleccionadas");
                 }
                 if(fechaSalida.after(reservacion.getFechaIngreso()) && fechaSalida.before(reservacion.getFechaSalida())) {
                     //Out date overlaps the checkin day of other reservation
@@ -93,7 +93,7 @@ public class ControladorReservas {
                 return reservacion;
             }
         }
-        throw new Error("No se ha encontrado ningúna reserva con ese codigo");
+        throw new Error("No se ha encontrado ninguna reserva con ese código");
     }
 
     public boolean pagarReserva(MetodoDePago metodoDePago, int codigoReserva) {
@@ -102,6 +102,6 @@ public class ControladorReservas {
                 return reservacion.pagarReservacion(metodoDePago);
             }
         }
-        throw new Error("Algo salio mal, no se ha podido completar el pago");
+        throw new Error("Algo salió mal, no se ha podido completar el pago");
     }
 }
