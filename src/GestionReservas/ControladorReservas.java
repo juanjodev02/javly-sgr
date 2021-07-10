@@ -13,21 +13,6 @@ public class ControladorReservas {
         this.habitaciones.addAll(habitaciones);
     }
 
-    public void addHabitaciones(Habitacion habitacion) {
-        this.habitaciones.add(habitacion);
-    }
-
-    public ArrayList<Habitacion> getHabitaciones() {
-        return this.habitaciones;
-    }
-
-    public ArrayList<Reservacion> getReservas() {
-        return reservas;
-    }
-
-    /**
-     * Esta función retorna el código de la reserva registrada
-     */
     public int registrarReserva(Date fechaIngreso, Date fechaSalida, int numeroHabitacion, String nombreDeUsuario) {
         Habitacion habitacionExistente = null;
 
@@ -88,8 +73,9 @@ public class ControladorReservas {
     }
 
     public Reservacion getReservaPorCodigo(int codigoReserva){
+        int _codigoReserva = codigoReserva;
         for(Reservacion reservacion : this.reservas) {
-            if (reservacion.getNumeroReserva() == codigoReserva) {
+            if (reservacion.getNumeroReserva() == _codigoReserva) {
                 return reservacion;
             }
         }
@@ -97,11 +83,7 @@ public class ControladorReservas {
     }
 
     public boolean pagarReserva(MetodoDePago metodoDePago, int codigoReserva) {
-        for(Reservacion reservacion : this.reservas) {
-            if (reservacion.getNumeroReserva() == codigoReserva) {
-                return reservacion.pagarReservacion(metodoDePago);
-            }
-        }
-        throw new Error("Algo salió mal, no se ha podido completar el pago");
+        Reservacion reservacionPagar = this.getReservaPorCodigo(codigoReserva);
+        return reservacionPagar.pagarReservacion(metodoDePago);
     }
 }

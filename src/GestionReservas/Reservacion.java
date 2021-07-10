@@ -20,10 +20,16 @@ public class Reservacion {
         this.habitacion = habitacion;
         this.estado = "pendiente";
         this.nombreDeUsuario = nombreDeUsuario;
-        this.precio = this.habitacion.getPrecio() * calcularDias(this.fechaIngreso, this.fechaSalida);
+        this.precio = calcularPrecio();
     }
 
-    private int calcularDias (Date date1, Date date2) {
+    private double calcularPrecio () {
+        return this.habitacion.getPrecio() * calcularDias();
+    }
+
+    private int calcularDias () {
+        Date date1 = this.fechaIngreso;
+        Date date2 = this.fechaSalida;
         long date1InMs = date1.getTime();
         long date2InMs = date2.getTime();
         long timeDiff = 0;
