@@ -7,9 +7,7 @@ public class PasarelaPagos implements Pago{
      * @param numero
      * @return
      */
-    public boolean efectuarPago(double monto, String numero) {
-        return (Math.random() * 10) % 2 == 0;
-    }
+    public boolean efectuarPago(double monto, String numero) { return recibirRespuesta(); }
 
     /**
      * Esta función es para los cobros de clientes por una reservación
@@ -18,6 +16,10 @@ public class PasarelaPagos implements Pago{
      * @return
      */
     public boolean efectuarCobro(double monto, String numero) {
-        return (Math.random() * 10) % 2 == 0;
+        return recibirRespuesta();
     }
+
+    public boolean recibirRespuesta(){return (Math.random() * 10) % 2 == 0; }
 }
+
+

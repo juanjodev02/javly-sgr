@@ -25,9 +25,7 @@ public class ControladorReservas {
 
         if (habitacionExistente == null) throw new Error("El número de habitación ingresado no es válido");
 
-        boolean validacionDeFechas = comprobarFechas(fechaIngreso, fechaSalida, numeroHabitacion);
-
-        if (validacionDeFechas) {
+        if (comprobarFechas(fechaIngreso, fechaSalida, numeroHabitacion)) {
             Reservacion nuevaReserva = new Reservacion(
                     this.reservas.size() + 1,
                     fechaIngreso,
@@ -47,7 +45,9 @@ public class ControladorReservas {
         boolean esValido = false;
         if (this.reservas.size() == 0) return true;
         for(Reservacion reservacion : this.reservas) {
-            if(!reservacion.getEstado().equals("cancelada") && reservacion.getHabitacion().getNumeroHabitacion() == numeroHabitacion) {
+            boolean estadoCancelada =reservacion.getEstado().equals("cancelada");
+            int numeroHabitacionReservada = reservacion.getHabitacion().getNumeroHabitacion();
+            if(!estadoCancelada && numeroHabitacionReservada == numeroHabitacion) {
                 if(fechaIngreso.after(reservacion.getFechaIngreso()) && fechaIngreso.before(reservacion.getFechaSalida())){
                     // Date is between reserved days, is not possible to create a new reservation
                     throw new Error("La habitación no está disponible en las fechas seleccionadas");
@@ -65,7 +65,8 @@ public class ControladorReservas {
     public ArrayList<Reservacion> getReservasPorUsuario(String nombreDeUsuario) {
         ArrayList<Reservacion> reservacionsPorUsuario = new ArrayList<>();
         for(Reservacion reservacion : this.reservas) {
-            if (reservacion.getNombreDeUsuario().equals(nombreDeUsuario)) {
+            boolean comprobacionNombreUsuario=reservacion.getNombreDeUsuario().equals(nombreDeUsuario);
+            if (comprobacionNombreUsuario) {
                 reservacionsPorUsuario.add(reservacion);
             }
         }

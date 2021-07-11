@@ -54,12 +54,10 @@ public class Reservacion {
     }
 
     public boolean pagarReservacion(MetodoDePago metodoDePago) {
-        boolean resultado =  metodoDePago.solicitarPago(this.precio);
-        if (resultado) {
+        if (metodoDePago.solicitarPago(this.precio)) {
             this.estado = "pagada";
             return true;
         } else {
-          /* throw new Error("El banco rechazó el pago!");*/
             System.out.println("El banco rechazó su pago!");
             return  false;
         }
