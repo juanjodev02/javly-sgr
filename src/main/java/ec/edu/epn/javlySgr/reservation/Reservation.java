@@ -25,7 +25,7 @@ public class Reservation {
         this.datesDiff = calculateDatesDiff();
         this.price = this.calculatePrice();
         this.paymentStatus = PaymentStatus.PENDING;
-        this.reservationStatus = ReservationStatus.WATING;
+        this.reservationStatus = ReservationStatus.WAITING;
     }
 
     private double calculatePrice() {

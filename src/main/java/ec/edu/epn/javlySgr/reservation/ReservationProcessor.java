@@ -82,4 +82,14 @@ public class ReservationProcessor {
     public ArrayList<Reservation> getReservations() {
         return reservations;
     }
+
+    public Reservation getReservationByCode(int code) {
+        Reservation reservation = null;
+        for(Reservation currentReservation : this.reservations) {
+            if(currentReservation.getCode() == code) {
+                reservation = currentReservation;
+            }
+        }
+        return reservation;
+    }
 }

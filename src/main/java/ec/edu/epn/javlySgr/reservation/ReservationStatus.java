@@ -7,7 +7,7 @@ package ec.edu.epn.javlySgr.reservation;
  * CANCELED: The reservation was canceled by client or the payment was not made before check in date
  */
 public enum ReservationStatus {
-    WATING,
+    WAITING,
     COMPLETED,
     IN_PROGRESS,
     CANCELED
