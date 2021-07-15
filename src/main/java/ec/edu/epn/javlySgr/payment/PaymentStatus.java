@@ -7,6 +7,6 @@ package ec.edu.epn.javlySgr.payment;
  */
 public enum PaymentStatus {
     PENDING,
-    COMPLETE,
+    COMPLETED,
     REJECTED
 }
