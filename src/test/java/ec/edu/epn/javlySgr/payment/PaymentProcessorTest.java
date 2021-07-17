@@ -11,12 +11,15 @@ import java.text.ParseException;
 public class PaymentProcessorTest {
 
     private PaymentGateway successPaymentGateway = null;
-    private PaymentGateway rejectPaymentGateway = null;
+    private PaymentGateway errorPaymentGateway = null;
 
     @Before
     public void setUp() {
         this.successPaymentGateway = Mockito.mock(PaymentGateway.class);
         Mockito.when(this.successPaymentGateway.requestPayment(Mockito.any())).thenReturn(new PaymentResponse(PaymentStatus.COMPLETED));
+
+        this.errorPaymentGateway = Mockito.mock(PaymentGateway.class);
+        Mockito.when(this.errorPaymentGateway.requestPayment(Mockito.any())).thenReturn(new PaymentResponse(PaymentStatus.REJECTED));
     }
 
     @Test
@@ -83,6 +86,19 @@ public class PaymentProcessorTest {
                 "Juan Jaramillo",
                 "11/18",
                 1233,
+                "visa"
+        );
+        boolean result = paymentProcessor.makePayment(50.00, creditCard);
+        Assert.assertFalse(result);
+    }
+
+    public void given_credit_card_when_is_correct_then_bank_reject_payment() throws ParseException {
+        PaymentProcessor paymentProcessor = new PaymentProcessor(this.errorPaymentGateway);
+        CreditCard creditCard = new CreditCard(
+                5196081888500645L,
+                "Juan Jaramillo",
+                "11/18",
+                123,
                 "visa"
         );
         boolean result = paymentProcessor.makePayment(50.00, creditCard);
