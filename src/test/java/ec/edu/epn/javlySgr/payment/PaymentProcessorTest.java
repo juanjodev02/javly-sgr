@@ -92,6 +92,7 @@ public class PaymentProcessorTest {
         Assert.assertFalse(result);
     }
 
+    @Test()
     public void given_credit_card_when_is_correct_then_bank_reject_payment() throws ParseException {
         PaymentProcessor paymentProcessor = new PaymentProcessor(this.errorPaymentGateway);
         CreditCard creditCard = new CreditCard(
