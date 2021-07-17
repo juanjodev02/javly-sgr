@@ -30,7 +30,6 @@ public class ReservationProcessor {
             }
 
             boolean roomAvailability = checkRoomAvailability(parsedCheckInDate, parsedCheckOutDate, roomNumber);
-            System.out.println(roomAvailability);
 
             if(!roomAvailability) {
                 return false;

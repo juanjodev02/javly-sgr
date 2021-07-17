@@ -20,16 +20,17 @@ public class RegistrationProcessor {
     }
 
     public RegistrationStatus makeRegistration(int reservationCode) {
+        Date systemDate = this.getSystemDate();
         Reservation reservation = this.reservationProcessor.getReservationByCode(reservationCode);
         if (reservation == null) {
             return RegistrationStatus.RESERVATION_NOT_FOUND;
         }
 
-        if(reservation.getCheckInDate().before(this.systemDate)) {
+        if(reservation.getCheckInDate().before(systemDate)) {
             return RegistrationStatus.REGISTRATION_BEFORE_CHECK_IN_DATE;
         }
 
-        if(reservation.getCheckInDate().after(this.systemDate)) {
+        if(reservation.getCheckInDate().after(systemDate)) {
             return RegistrationStatus.REGISTRATION_AFTER_CHECK_IN_DATE;
         }
 
