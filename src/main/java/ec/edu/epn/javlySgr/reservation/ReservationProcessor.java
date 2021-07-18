@@ -11,9 +11,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ReservationProcessor {
     private final ArrayList<Room> rooms = new ArrayList<>();
     private final ArrayList<Reservation> reservations = new ArrayList<>();
+    private Date systemDate;
 
     public ReservationProcessor(ArrayList<Room> rooms) {
         this.rooms.addAll(rooms);
+        this.systemDate = new Date();
     }
 
     public void addRoom(Room room) {
@@ -32,6 +34,7 @@ public class ReservationProcessor {
             boolean roomAvailability = checkRoomAvailability(parsedCheckInDate, parsedCheckOutDate, roomNumber);
 
             if(!roomAvailability) {
+                System.out.println("error 1");
                 return false;
             }
 
@@ -56,29 +59,40 @@ public class ReservationProcessor {
 
     public boolean checkRoomAvailability(Date checkInDate, Date checkOutDate, int roomNumber) {
         boolean availability = false;
-        boolean checkInDateIsBeforeSystemDate = new Date().after(checkInDate);
-        boolean checkOutDateIsBeforeSystemDate = new Date().after(checkInDate);
+        boolean checkInDateIsBeforeSystemDate = this.getSystemDate().after(checkInDate);
+        boolean checkOutDateIsBeforeSystemDate = this.getSystemDate().after(checkInDate);
+        boolean dateResponse = !checkInDateIsBeforeSystemDate && !checkOutDateIsBeforeSystemDate;
         if (this.reservations.size() == 0) {
-            return !checkInDateIsBeforeSystemDate && !checkOutDateIsBeforeSystemDate;
+            return dateResponse;
         }
 
         for(Reservation reservation : this.reservations) {
             boolean isCanceled = reservation.getReservationStatus() == ReservationStatus.CANCELED;
             int reservedRoomNumber = reservation.getRoom().getNumber();
-            if(checkInDateIsBeforeSystemDate && checkOutDateIsBeforeSystemDate) {
-                if(!isCanceled && reservedRoomNumber == roomNumber) {
+            if(dateResponse) {
+                //if(!isCanceled && reservedRoomNumber == roomNumber) {
                     boolean isBetweenReservedDays = checkInDate.after(reservation.getCheckInDate()) && checkInDate.before(reservation.getCheckOutDate());
-                    if(!isBetweenReservedDays){
-                        boolean dateOverlaps = checkOutDate.after(reservation.getCheckInDate()) && checkOutDate.before(reservation.getCheckOutDate());
-                        if(!dateOverlaps) {
+                    if(reservedRoomNumber == roomNumber && isBetweenReservedDays){
+                        if(isCanceled) {
                             availability = true;
+                        } else {
+                            boolean dateOverlaps = checkOutDate.after(reservation.getCheckInDate()) && checkOutDate.before(reservation.getCheckOutDate());
+                            if(!dateOverlaps) {
+                                availability = true;
+                            }
                         }
+                    } else {
+                        availability = true;
                     }
-                }
+                //}
             }
         }
 
         return availability;
+    }
+
+    public Date getSystemDate() {
+        return systemDate;
     }
 
     public ArrayList<Room> getRooms() {

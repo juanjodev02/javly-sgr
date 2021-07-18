@@ -28,19 +28,23 @@ public class RegistrationProcessorTest {
     public void setUp() throws ParseException {
         ArrayList<Room> rooms = new ArrayList<>();
         rooms.add(new Room(1, "Simple room", 70.00, RoomStatus.AVAILABLE));
-        rooms.add(new Room(2, "Double room", 100.00, RoomStatus.RESERVED));
-        rooms.add(new Room(3, "Simple room", 70.00, RoomStatus.MAINTENANCE));
+        rooms.add(new Room(2, "Double room", 100.00, RoomStatus.AVAILABLE));
+        rooms.add(new Room(3, "Simple room", 70.00, RoomStatus.AVAILABLE));
         rooms.add(new Room(4, "Simple room", 70.00, RoomStatus.AVAILABLE));
         this.client = new Client("Juan", "Jaramillo", "juan.jaramillo02@epn.edu.ec", "secure-password");
-        this.reservationProcessor = new ReservationProcessor(rooms);
+        Date mockedDate = new SimpleDateFormat("dd/MM/yyyy").parse("29/10/2021");
+        this.reservationProcessor = Mockito.spy(new ReservationProcessor(rooms));
+
+        Mockito.when(this.reservationProcessor.getSystemDate()).thenReturn(mockedDate);
+
         this.reservationProcessor.makeReservation(this.client,"29/10/2021", "1/11/2021", 1);
-        this.reservationProcessor.makeReservation(this.client,"15/12/2021", "17/12/2021", 4);
+        boolean res = this.reservationProcessor.makeReservation(this.client,"15/12/2021", "17/12/2021", 2);
+        System.out.println(res);
         this.reservationProcessor.getReservations().forEach(x -> {
             System.out.println(x.getCode());
         });
         this.reservation = this.reservationProcessor.getReservationByCode(1);
         this.employee = new Employee("Lesly", "Tipanluiza", "Receptions", "secure-password", "lesly.tipanluiza");
-        Date mockedDate = new SimpleDateFormat("dd/MM/yyyy").parse("29/10/2021");
         RegistrationProcessor plainRegistrationProcessor = new RegistrationProcessor(employee, this.reservationProcessor);
         this.registrationProcessor = Mockito.spy(plainRegistrationProcessor);
         Mockito.when(registrationProcessor.getSystemDate()).thenReturn(mockedDate);
@@ -54,13 +58,15 @@ public class RegistrationProcessorTest {
 
     @Test()
     public void given_reservation_code_when_reservation_not_exists_then_error() {
-        RegistrationStatus response = this.registrationProcessor.makeRegistration(this.reservation.getCode() + 1);
+        RegistrationStatus response = this.registrationProcessor.makeRegistration(100);
         Assert.assertEquals(RegistrationStatus.RESERVATION_NOT_FOUND, response);
     }
 
     @Test()
-    public void given_reservation_code_when_date_is_before_date_system_then_error() {
+    public void given_reservation_code_when_date_is_before_date_system_then_error() throws ParseException {
         RegistrationProcessor customRegistrationProcessor = Mockito.spy(new RegistrationProcessor(this.employee, this.reservationProcessor));
+        Date mockedDate = new SimpleDateFormat("dd/MM/yyyy").parse("29/10/2022");
+        Mockito.when(customRegistrationProcessor.getSystemDate()).thenReturn(mockedDate);
         RegistrationStatus response = customRegistrationProcessor.makeRegistration(2);
         Assert.assertEquals(RegistrationStatus.REGISTRATION_BEFORE_CHECK_IN_DATE, response);
     }
