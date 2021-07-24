@@ -2,7 +2,10 @@ package ec.edu.epn.javlySgr.reservation;
 
 import ec.edu.epn.javlySgr.client.Client;
 import ec.edu.epn.javlySgr.payment.PaymentStatus;
+import ec.edu.epn.javlySgr.service.Service;
+import ec.edu.epn.javlySgr.service.ServiceType;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Reservation {
@@ -12,9 +15,10 @@ public class Reservation {
     private final Date checkInDate;
     private final Date checkOutDate;
     private final int datesDiff;
-    private final double price;
+    private double price;
     private PaymentStatus paymentStatus;
     private ReservationStatus reservationStatus;
+    private ArrayList<Service> services;
 
     public Reservation(int code, Client client, Room room, Date checkIn, Date checkOut) {
         this.code = code;
@@ -26,6 +30,16 @@ public class Reservation {
         this.price = this.calculatePrice();
         this.paymentStatus = PaymentStatus.PENDING;
         this.reservationStatus = ReservationStatus.WAITING;
+        this.services = new ArrayList<>();
+    }
+
+    public ArrayList<Service> getServices() {
+        return services;
+    }
+
+    public void addService(Service service) {
+        this.services.add(service);
+        this.price = this.price + service.getServiceType().getPrice();
     }
 
     private double calculatePrice() {
