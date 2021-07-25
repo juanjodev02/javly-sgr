@@ -16,6 +16,7 @@ import ec.edu.epn.javlySgr.service.ServiceType;
 public class Main {
     public static void main(String[] args) throws ParseException{
         System.out.println("PROYECTO DE JUAN JARAMILLO Y LESLY TIPANLUIZA");
+        System.out.println("Metodologías ágiles");
         ArrayList<Room> newRoom =  new ArrayList<Room>();
         newRoom.add(new Room(1,"Room for two people",50.00, RoomStatus.AVAILABLE));
         newRoom.add(new Room(2,"Single room with sea view",100.00, RoomStatus.AVAILABLE));
