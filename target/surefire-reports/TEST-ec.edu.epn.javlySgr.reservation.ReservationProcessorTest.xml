@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" time="0.005" errors="0" skipped="0">
+<testsuite tests="8" failures="0" name="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" time="0.006" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2021.1.3"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -42,7 +42,7 @@
     <property name="java.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds.license:/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="16"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2021.1.3 install"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2021.1.3 package"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -59,12 +59,12 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_error_parameters_when_make_reservation_error[0]" time="0"/>
+  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_error_parameters_when_make_reservation_error[0]" time="0.001"/>
   <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[0]" time="0.001"/>
   <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_error_parameters_when_make_reservation_error[1]" time="0.001"/>
-  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[1]" time="0.001"/>
+  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[1]" time="0"/>
   <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_error_parameters_when_make_reservation_error[2]" time="0"/>
   <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[2]" time="0.001"/>
   <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_error_parameters_when_make_reservation_error[3]" time="0.001"/>
-  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[3]" time="0"/>
+  <testcase classname="ec.edu.epn.javlySgr.reservation.ReservationProcessorTest" name="given_room_client_and_dates_when_room_is_available_then_ok[3]" time="0.001"/>
 </testsuite>
