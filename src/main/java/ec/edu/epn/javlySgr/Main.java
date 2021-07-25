@@ -6,12 +6,10 @@ import org.mockito.Mockito;
 import ec.edu.epn.javlySgr.client.Client;
 import ec.edu.epn.javlySgr.payment.*;
 import ec.edu.epn.javlySgr.payment.method.CreditCard;
-import ec.edu.epn.javlySgr.payment.method.IPaymentMethod;
 import ec.edu.epn.javlySgr.reservation.Reservation;
 import ec.edu.epn.javlySgr.reservation.ReservationProcessor;
 import ec.edu.epn.javlySgr.reservation.Room;
 import ec.edu.epn.javlySgr.reservation.RoomStatus;
-import ec.edu.epn.javlySgr.service.Service;
 import ec.edu.epn.javlySgr.service.ServiceProcessor;
 import ec.edu.epn.javlySgr.service.ServiceType;
 
@@ -85,37 +83,35 @@ public class Main {
             System.out.println("2. Paypal");
             int paymentOption = 1;
             System.out.println("Method selected: "+1);
-            if(paymentOption==1){
-                System.out.println("\t\tCREDIT CARD INFORMATION");
-                System.out.print("Enter the credit card number: ");
-                long creditNumber = 5196081888500645L;
-                System.out.println(creditNumber);
-                System.out.print("Enter the owner name: ");
-                String owner = "Lesly Tipanluiza";
-                System.out.println(owner);
-                System.out.print("Enter the expiration date: ");
-                String expirationDate = "10/25";
-                System.out.println(expirationDate);
-                System.out.print("Enter the cvv: ");
-                int cvv = 123;
-                System.out.println(cvv);
-                System.out.print("Enter the company: ");
-                String company = "Visa";
-                System.out.println(company);
-                CreditCard creditCard = new CreditCard(creditNumber, owner, expirationDate, cvv,company);
-                PaymentGateway paymentGateway=Mockito.mock(PaymentGateway.class);
-                Mockito.when(paymentGateway.requestPayment(Mockito.any())).thenReturn(new PaymentResponse(PaymentStatus.COMPLETED));
-                PaymentProcessor paymentProcessor= new PaymentProcessor(paymentGateway);
-                paymentProcessor.makePayment(reservation.getPrice(),creditCard);
-                System.out.println("Thanks for choosing us! Here is your ticket: ");
-                System.out.println("\t\tTICKET INFORMATION");
-                System.out.println("Reservation in the name of: "+ reservation.getClient().getName()+" "+ reservation.getClient().getLastName()+"\n"+
-                                    "Reservation code: "+ reservation.getCode()+"\n"+
-                                            "Check in date: "+ reservation.getCheckInDate()+"\n"+
-                                            "Check out date: "+ reservation.getCheckOutDate()+"\n"+
-                                            "Price: "+reservation.getPrice()+"\n"
-                );
-            }
+            System.out.println("\t\tCREDIT CARD INFORMATION");
+            System.out.print("Enter the credit card number: ");
+            long creditNumber = 5196081888500645L;
+            System.out.println(creditNumber);
+            System.out.print("Enter the owner name: ");
+            String owner = "Lesly Tipanluiza";
+            System.out.println(owner);
+            System.out.print("Enter the expiration date: ");
+            String expirationDate = "10/25";
+            System.out.println(expirationDate);
+            System.out.print("Enter the cvv: ");
+            int cvv = 123;
+            System.out.println(cvv);
+            System.out.print("Enter the company: ");
+            String company = "Visa";
+            System.out.println(company);
+            CreditCard creditCard = new CreditCard(creditNumber, owner, expirationDate, cvv,company);
+            PaymentGateway paymentGateway=Mockito.mock(PaymentGateway.class);
+            Mockito.when(paymentGateway.requestPayment(Mockito.any())).thenReturn(new PaymentResponse(PaymentStatus.COMPLETED));
+            PaymentProcessor paymentProcessor= new PaymentProcessor(paymentGateway);
+            paymentProcessor.makePayment(reservation.getPrice(),creditCard);
+            System.out.println("Thanks for choosing us! Here is your ticket: ");
+            System.out.println("\t\tTICKET INFORMATION");
+            System.out.println("Reservation in the name of: "+ reservation.getClient().getName()+" "+ reservation.getClient().getLastName()+"\n"+
+                                "Reservation code: "+ reservation.getCode()+"\n"+
+                                        "Check in date: "+ reservation.getCheckInDate()+"\n"+
+                                        "Check out date: "+ reservation.getCheckOutDate()+"\n"+
+                                        "Price: "+reservation.getPrice()+"\n"
+            );
         }catch (Error | Exception e){
             System.out.println(e.getMessage());
         }

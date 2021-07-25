@@ -1,0 +1,5 @@
+ec/edu/epn/javlySgr/service/ServiceProcessorTest.class
+ec/edu/epn/javlySgr/registration/RegistrationProcessorTest.class
+ec/edu/epn/javlySgr/reservation/ReservationProcessorTest.class
+ec/edu/epn/javlySgr/payment/PaymentProcessorTest.class
+ec/edu/epn/javlySgr/devolution/DevolutionProcessorTest.class
